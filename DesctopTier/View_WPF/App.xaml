@@ -1,0 +1,26 @@
+﻿<Application x:Class="View_WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lctr="clr-namespace:View_WPF.Infrastructure"
+             DispatcherUnhandledException="Application_DispatcherUnhandledException"
+             StartupUri="Views/Windows/MainWindow.xaml"
+             >
+    <Application.Resources>
+        <ResourceDictionary>
+            <lctr:ViewModelLocator x:Key="Locator"/>
+            <ResourceDictionary.MergedDictionaries>
+                <!--Styles-->
+                <ResourceDictionary Source=".\Views\Resources\CustemStyle\CustemWindow.xaml"/>
+                <ResourceDictionary Source=".\Views\Resources\CustemStyle\CustemButton.xaml"/>
+                <ResourceDictionary Source=".\Views\Resources\CustemStyle\CustomMenu.xaml"/>
+                <ResourceDictionary Source=".\Views\Resources\CustemStyle\CustomDataGrid.xaml"/>
+                <ResourceDictionary Source=".\Views\Resources\CustemStyle\CustomTreeView.xaml"/>
+                <ResourceDictionary Source=".\Views\Resources\CustemStyle\CustomTabItem.xaml"/>
+                <ResourceDictionary Source=".\Views\Resources\CustemStyle\CustomTextBox.xaml"/>
+                <ResourceDictionary Source=".\Views\Resources\CustemStyle\ComboBoxForOutputText.xaml"/>
+                <!--Globalization-->
+                <ResourceDictionary x:Name="Localization" Source=".\Views\Resources\Globalization\Lang.ru-RU.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

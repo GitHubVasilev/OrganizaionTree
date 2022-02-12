@@ -1,0 +1,100 @@
+﻿<Window x:Class="View_WPF.Views.Windows.CreateDivisionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="{DynamicResource titleCreateDivision}" Height="450" Width="350"
+        Style="{StaticResource CustemWindow}" Icon="/Views/Windows/icon-property-component.png"
+        DataContext="{Binding Path=CreateDivisionVM, Source={StaticResource Locator}}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction
+                Command="{Binding SetUIDParantComponent}"
+                CommandParameter="{Binding Path=MainViewModel.SelectedItemInTree.UID, Source={StaticResource Locator}}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="#FFbdc0bd"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <StackPanel Margin="5" DataContext="{Binding DivisionViewModel}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="75*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="UID:" Margin="0,5"/>
+                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="tbUID" Style="{DynamicResource CustomTextBox}" Text="{Binding UID, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,5"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=tbUID, Path=(Validation.Errors)[0].ErrorContent}" Foreground="Red"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="75*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource textblockTitle}" Margin="0,5"/>
+                    <TextBox Grid.Column="1"
+                             Grid.Row="0"
+                             Style="{DynamicResource CustomTextBox}"
+                             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             Margin="0,5" x:Name="tbName">
+                    </TextBox>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=tbName, Path=(Validation.Errors)[0].ErrorContent}" Foreground="Red"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="75*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource textblockType}" Margin="0,5"/>
+                    <ComboBox Margin="0,5"
+                          Grid.Column="1"
+                          Grid.Row="0"
+                          ItemsSource="{DynamicResource typeDivisions}"
+                          DisplayMemberPath="Name"
+                          SelectedValue="{Binding TypeComponent, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedValuePath="ID" 
+                          x:Name="cbTypeComponent"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=cbTypeComponent, Path=(Validation.Errors)[0].ErrorContent}" Foreground="Red"/>
+                </Grid>
+            </StackPanel>
+        </Grid>
+        <StackPanel Margin="5" Orientation="Horizontal" FlowDirection="RightToLeft" Grid.Row="1">
+            <Button
+                Content="{DynamicResource buttonCancel}"
+                Style="{DynamicResource CustemButton}" 
+                Width="50"
+                Margin="5,0"
+                IsCancel="True"/>
+            <Button
+                Content="{DynamicResource buttonOk}"
+                Style="{DynamicResource CustemButton}"
+                Width="50"
+                Margin="5,0"
+                Click="Button_Click"
+                Command="{Binding CreateDivision}"
+                IsDefault="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

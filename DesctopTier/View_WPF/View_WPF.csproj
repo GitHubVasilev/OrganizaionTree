@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Views\Windows\icon-main-window.png" />
+    <None Remove="Views\Windows\icon-property-component.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="Ninject" Version="3.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConnectToControllerTier\ConnectToControllerTier.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\Icons\icon-main-window.png" />
+    <Resource Include="Views\Windows\icon-main-window.png" />
+    <Resource Include="Views\Windows\icon-property-component.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Resources\Globalization\Lang.en-US.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,189 @@
+﻿<Window x:Class="View_WPF.Views.Windows.PropertyWorkerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="{DynamicResource titleProperty}" Height="450" Width="350"
+        Style="{StaticResource CustemWindow}" Icon="/Views/Windows/icon-property-component.png"
+        DataContext="{Binding Path=PropertyWorkerVM, Source={StaticResource Locator}}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction
+                Command="{Binding SearchAndSetModel}"
+                CommandParameter="{Binding Path=MainViewModel.SelectedComponentInDivision.UID, Source={StaticResource Locator}}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="#FFbdc0bd"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <TabControl Margin="5" Grid.Row="0" ItemContainerStyle="{DynamicResource CustemTabItem}" Padding="0">
+            <TabItem Header="Главная">
+                <StackPanel DataContext="{Binding WorkerVM}" Background="#FFbdc0bd">
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="UID:" Margin="0,5"/>
+                        <TextBlock Grid.Column="1" Text="{Binding UID}" Margin="0,5"/>
+                    </Grid>
+                    <Grid Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{DynamicResource textblockPosition}" Margin="0,5"/>
+                        <ComboBox Style="{DynamicResource ComboBoxForOutputText}"
+                          Grid.Column="1"
+                          ItemsSource="{DynamicResource typeWorkers}"
+                          DisplayMemberPath="Name"
+                          SelectedValue="{Binding TypeComponent}"
+                          SelectedValuePath="ID" IsEnabled="False"/>
+                    </Grid>
+                    <Grid Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{DynamicResource textblockFirstname}" Margin="0,5"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Firstname}" Margin="0,5"/>
+                    </Grid>
+                    <Grid Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{DynamicResource textblockLastname}" Margin="0,5"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Lastname}" Margin="0,5"/>
+                    </Grid>
+                    <Grid Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{DynamicResource textblockBirthday}" Margin="0,5"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Birthday, StringFormat=dd.MM.yyyy}" Margin="0,5"/>
+                    </Grid>
+                    <Grid Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{DynamicResource textblockPaymentRate}" Margin="0,5"/>
+                        <TextBlock Grid.Column="1" Text="{Binding PaymentRate}" Margin="0,5"/>
+                    </Grid>
+                    <Grid Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{DynamicResource textblockSalary}" Margin="0,5"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Salary}" Margin="0,5"/>
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Редакция">
+                <StackPanel DataContext="{Binding WorkerVM}" Background="#FFbdc0bd">
+                    <Grid  Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="5*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="UID:" Margin="0,5"/>
+                        <TextBox x:Name="tbUID" Grid.Column="1" Grid.Row="0" Style="{DynamicResource CustomTextBox}" Text="{Binding UID, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,3.2"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=tbUID, Path=(Validation.Errors)[0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                    <Grid  Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="5*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource textblockType}" Margin="0,5"/>
+                        <ComboBox x:Name="cbTypeComponent"
+                          Grid.Column="1"
+                          Grid.Row="0"
+                          Margin="0,5"
+                          ItemsSource="{Binding Source={StaticResource typeWorkers}}"
+                          DisplayMemberPath="Name"
+                          SelectedValue="{Binding TypeComponent, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedValuePath="ID"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=cbTypeComponent, Path=(Validation.Errors)[0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                    <Grid  Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="5*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource textblockFirstname}" Margin="0,5"/>
+                        <TextBox x:Name="tbFirstName" Grid.Column="1" Grid.Row="0" Style="{DynamicResource CustomTextBox}" Text="{Binding Firstname, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,3.2"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=tbFirstName, Path=(Validation.Errors)[0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                    <Grid  Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="5*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource textblockLastname}" Margin="0,5"/>
+                        <TextBox x:Name="tbLastName" Grid.Column="1" Grid.Row="0" Style="{DynamicResource CustomTextBox}" Text="{Binding Lastname, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,3.2"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=tbLastName, Path=(Validation.Errors)[0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                    <Grid  Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="5*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource textblockBirthday}" Margin="0,5"/>
+                        <DatePicker x:Name="dpBirthday" Grid.Column="1" Grid.Row="0" Margin="0,3.2" SelectedDate="{Binding Birthday, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=dpBirthday, Path=(Validation.Errors)[0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                    <Grid Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="5*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource textblockPaymentRate}" Margin="0,5" />
+                        <TextBox x:Name="tbPaymentRate" Grid.Column="1" Grid.Row="0" Style="{DynamicResource CustomTextBox}" Text="{Binding PaymentRate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Margin="0,3.2"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=tbPaymentRate, Path=(Validation.Errors)[0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        <StackPanel Margin="5" Orientation="Horizontal" FlowDirection="RightToLeft" Grid.Row="1">
+            <Button Content="{DynamicResource buttonCancel}" Style="{DynamicResource CustemButton}" Width="50" Margin="5,0" IsCancel="True"/>
+            <Button Content="{DynamicResource buttonOk}" Style="{DynamicResource CustemButton}" Width="50" Margin="5,0" Click="Button_Click" Command="{Binding Path=Update}" IsDefault="True"/>
+        </StackPanel>
+    </Grid>
+</Window>
